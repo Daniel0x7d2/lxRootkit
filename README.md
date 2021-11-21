@@ -11,7 +11,7 @@ as well as how to debug it. And the **_most_** important thing, is how to develo
 > environment
 - Linux kernel(could be any version, since the kernel is important here). 
 - VM where we can test our RootKitttt 🐛 - **Vmware, VirtualBox, Qemu**.
-- Linux kernel *dhaaaa* we need to undertuand what we are going to subvert right? [Linux kernel source code](https://github.com/torvalds/linux)
+- Linux kernel *dhaaaa* we need to understand what we are going to subvert right? [Linux kernel source code](https://github.com/torvalds/linux).
 - And your favorite text editor since we'll be coding in C. 
 
 **that's it for the environment part**.
