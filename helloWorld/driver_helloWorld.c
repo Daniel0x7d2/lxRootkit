@@ -12,7 +12,7 @@ MODULE_VERSION("1.00");
 
 // loading the driver stack on insmoding 
 
-// __init macro: The linker inserts a corresponding kernel code in to a dedicated section so it could  
+// __init macro: The linker inserts a corresponding kernel code in to a dedicated section so it  
 // loads the driver and unload it as needed. This section is unqiue to compiling & linking drivers. 
 static int __init hellowrld_init(void) {
     printk(KERN_INFO "Hello from kernel! :)\n"); 
