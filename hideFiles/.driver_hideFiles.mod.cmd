@@ -1,0 +1,1 @@
+cmd_/home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.mod := { echo  /home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.o;  echo; } > /home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.mod
