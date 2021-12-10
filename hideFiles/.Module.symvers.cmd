@@ -1,0 +1,1 @@
+cmd_/home/dang/Documents/GitHub/lxRootkit/hideFiles/Module.symvers := sed 's/\.ko$$/\.o/' /home/dang/Documents/GitHub/lxRootkit/hideFiles/modules.order | scripts/mod/modpost    -o /home/dang/Documents/GitHub/lxRootkit/hideFiles/Module.symvers -e -i Module.symvers   -T -

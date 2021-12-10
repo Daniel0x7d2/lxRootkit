@@ -1,0 +1,1 @@
+cmd_/home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.ko := ld -r -m elf_x86_64 --build-id=sha1  -T scripts/module.lds -o /home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.ko /home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.o /home/dang/Documents/GitHub/lxRootkit/hideFiles/driver_hideFiles.mod.o;  true
