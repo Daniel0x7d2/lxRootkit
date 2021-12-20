@@ -1,7 +1,5 @@
 
-
-#ifndef PCH_H
-#define PCH_H
+#pragma once 
 
 #include <linux/init.h>
 #include <linux/module.h>
@@ -11,4 +9,3 @@
 #include <net/tcp.h> 
 #include <linux/dirent.h>
 
-#endif 

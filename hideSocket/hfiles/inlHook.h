@@ -1,3 +1,4 @@
+#pragma once
 
 #include "pch.h"
 #include "utils64.h" 
@@ -48,7 +49,7 @@ void inline_hook_x64(unsigned long toHook, unsigned long theHook)
     wpOFF(); 
     /* copying the rest of the pattern to the target function */ 
     /* moving 7 bytes to copy to the next instruction */
-    memcpy((unsigned long)toHook, movPattern, szMovPattern);
+    memcpy((unsigned long)(toHook), movPattern, szMovPattern);
     memcpy((unsigned long)(toHook + szMovPattern), jmpPattern, szJmpPattern);
     wpON();
    // kvfree(buffer); 
@@ -58,7 +59,7 @@ void inline_unhook_x64(void)
 {
     /* original tcp4_seq_show prolog */ 
     unsigned char patternOld[] =  { 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x55, 0x48, 0x89, 0xFD, 0x53 }; 
-    memcpy(hook.originalPattern, patternOld, sizeof(patternOld)); 
+    memcpy((unsigned long)(hook.originalPattern), patternOld, sizeof(patternOld)); 
 
     wpOFF(); 
     memcpy(hook.targetFunc, hook.originalPattern, sizeof(hook.originalPattern)); 
